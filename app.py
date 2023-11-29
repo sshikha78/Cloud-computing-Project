@@ -1,38 +1,39 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template
 import joblib
-import numpy as np
+import pandas as pd
 
 app = Flask(__name__)
 
-# Load your trained model
-model = joblib.load('random_forest_model.joblib')  # Update with your model path
+# Load the trained model
+model = joblib.load('random_forest_model.joblib')
 
-
-@app.route('/', methods=['GET'])
-def home():
-    return render_template('form.html')
-
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if request.method == 'POST':
-        try:
-            # Collect data from form
-            age = request.form.get('age')
-            hypertension = request.form.get('hypertension')
-            heart_disease = request.form.get('heart_disease')
-            # Add other feature data collection here
+    # Extract input data from the form
+    age = request.form['age']
+    hypertension = request.form['hypertension']
+    heart_disease = request.form['heart_disease']
 
-            # Prepare the feature array for prediction
-            feature_array = np.array([[age, hypertension, heart_disease]])  # Update with all features
+    # Create a DataFrame from the input data
+    input_data = pd.DataFrame({
+        'age': [age],
+        'hypertension_0': [1 if hypertension == 'False' else 0],
+        'hypertension_1': [1 if hypertension == 'True' else 0],
+        'heart_disease_0': [1 if heart_disease == 'False' else 0],
+        'heart_disease_1': [1 if heart_disease == 'True' else 0]
+    })
 
-            # Make prediction
-            prediction = model.predict(feature_array)
-            return jsonify({'prediction': str(prediction[0])})
+    # Make a prediction
+    prediction = model.predict(input_data)
 
-        except Exception as e:
-            return jsonify({'error': str(e)})
+    # Convert prediction to a readable format
+    prediction_text = 'High Risk of Stroke' if prediction[0] == 1 else 'Low Risk of Stroke'
 
+    return render_template('result.html', prediction=prediction_text)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True)

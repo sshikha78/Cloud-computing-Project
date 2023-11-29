@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stroke Prediction></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 30px;
+            color: navy;
+        }
+        form {
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+        }
+        input, select {
+            margin: 10px 0;
+            padding: 8px 15px;
+            font-size: 16px;
+        }
+        input[type=submit] {
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: darkgreen;
+        }
+        .project-details {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="project-details">
+        <h2>Stroke Prediction Project</h2>
+        <p>Submitted by - Group 7</p>
+        <p>Sanchit Vijay, Sanjana S Godolkar, Shikha Sharma, Guoshan Yu</p>
+    </div>
+    <h1>Stroke Prediction Form</h1>
+    <form action="/predict" method="post">
+        Age: <input type="number" name="age"><br>
+        Hypertension:
+        <select name="hypertension">
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+        Heart Disease:
+        <select name="heart_disease">
+            <option value="False">No</option>
+            <option value="True">Yes</option>
+        </select><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
