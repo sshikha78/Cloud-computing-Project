@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stroke Prediction Form</title>
+</head>
+<body>
+  <h2>Stroke Prediction</h2>
+  <form method="post" action="/predict">
+    <label for="age">Age:</label><br>
+    <input type="number" id="age" name="age"><br>
+    <label for="hypertension">hypertension:</label><br>
+    <select name="hypertension" id="hypertension">
+      <option value="True">True</option>
+      <option value="False">False</option>
+    </select><br>
+    <label for="heart_disease">heart_disease:</label><br>
+    <select name="heart_disease" id="heart_disease">
+      <option value="True">True</option>
+      <option value="False">False</option>
+    </select><br>
+    <!-- Add other input fields here as needed -->
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>
